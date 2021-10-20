@@ -71,26 +71,42 @@
     }
 
     label {
+      position: relative;
       display: inline-block;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .badge {
+      position: absolute;
+      display: inline-block;
+      min-width: 16px;
+      padding: 4px;
+      border-radius: 50%;
+      font-size: 12px;
+      text-align: center;
+      background: #1779ba;
+      color: #fefefe;
+      z-index: 10;
+      top: -8px;
+      right: -4px;
     }
 
     .control label .all {
       background-color: #e1ecf4;
     }
 
-    input[type=checkbox]#active:checked ~ .control label .active,
-    input[type=checkbox]#partial:checked ~ .control label .partial {
+    input[type=checkbox]#active:checked ~ .control label .number.active,
+    input[type=checkbox]#partial:checked ~ .control label .number.partial {
       background-color: #e1ecf4;
     }
 
-    input[type=checkbox]#active:checked ~ .wrapper .active,
-    input[type=checkbox]#partial:checked ~ .wrapper .partial {
+    input[type=checkbox]#active:checked ~ .wrapper .number.active,
+    input[type=checkbox]#partial:checked ~ .wrapper .number.partial {
       display: flex;
     }
 
-    @media only screen and (max-device-width: 480px) {
+    @media (max-width: 500px) {
 
       .control {
         justify-content: space-around;
@@ -118,9 +134,9 @@
   <input type="checkbox" name="active" id="active">
 
   <div class="control">
-    <label><div class="number all">未中籤</div></label>
-    <label for="partial"><div class="number partial">看末三碼</div></label>
-    <label for="active"><div class="number active">中過籤</div></label>
+    <label><div class="number all">未中籤</div><span class="badge left">1</span></label>
+    <label for="partial"><div class="number partial">看末三碼</div><span class="badge partial">1</span></label>
+    <label for="active"><div class="number active">中過籤</div><span class="badge active">1</span></label>
   </div>
   <div class="wrapper"></div>
 
@@ -171,16 +187,25 @@
 
 
     $(function() {
-      const selected = [...new Set(_.flatten(_.map(coupons, item => item.codes)))]
-      const partialList = [...new Set(selected.filter(number => number.length > 2))]
-      
+      const selected = [...new Set(
+        _.flatten(_.map(coupons, item => item.codes)),
+      )].sort()
+      const activeList = [...new Set(selected.filter(number => number.length == 2))]
+      const partialList = [...new Set(_.map(selected.filter(number => number.length > 2), item => item.slice(1)).filter(item => !selected.includes(item)))]
+      const all = [...new Set([...activeList, ...partialList])]
+
+      console.log(activeList)
       console.log(partialList)
-      
+
+      $('.badge.active').html(activeList.length)
+      $('.badge.partial').html(partialList.length)
+      $('.badge.left').html(100 - all.length)
+
       for (var i = 0; i< 100; i++) {
-        const isActive = selected.includes(zeroPad(i, 2))
+        const isActive = activeList.includes(zeroPad(i, 2))
         let isPartial = false
         if (!isActive) {
-          isPartial = _.map(partialList, item => item.slice(1)).includes(zeroPad(i, 2))
+          isPartial = partialList.includes(zeroPad(i, 2))
         }
         $('.wrapper').append('<div class="number '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'">' + zeroPad(i, 2) + '</div>');
       }
