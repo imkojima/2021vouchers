@@ -31,15 +31,13 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 90px;
-      height: 90px;
-      padding: 8px 15px 6px;
+      padding: 8px 8px 6px;
       font-size: 4rem;
       font-weight: 500;
       border-radius: 15px;
       background: #fff;
       border: 1px solid #ddd;
-      margin-right: 8px;
+      margin-right: 24px;
       margin-bottom: 8px;
     }
 
@@ -55,7 +53,7 @@
 
     .control .number {
       display: inline-block;
-      font-size: 2rem;
+      font-size: 16px;
     }
 
     .active {
@@ -89,17 +87,17 @@
       color: #fefefe;
       z-index: 10;
       top: -8px;
-      right: -4px;
+      right: 12px;
     }
 
-    .control label .all {
+    /* .control label .all {
       background-color: #e1ecf4;
     }
 
     input[type=checkbox]#active:checked ~ .control label .number.active,
     input[type=checkbox]#partial:checked ~ .control label .number.partial {
       background-color: #e1ecf4;
-    }
+    } */
 
     input[type=checkbox]#active:checked ~ .wrapper .number.active,
     input[type=checkbox]#partial:checked ~ .wrapper .number.partial {
@@ -164,7 +162,6 @@
     <label for="partial"><div class="number partial">看末三碼</div><span class="badge partial">1</span></label>
     <label for="active"><div class="number active">中過籤</div><span class="badge active">1</span></label>
   </div>
-  <div class="wrapper"></div>
 
   <div class="bingo"></div>
 
@@ -262,7 +259,7 @@
         if (!isActive) {
           isPartial = partialList.includes(zeroPad(i, 2))
         }
-        $('.wrapper').append('<div class="number '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" alt="test">' + zeroPad(i, 2) + '</div>');
+        // $('.wrapper').append('<div class="number '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" alt="test">' + zeroPad(i, 2) + '</div>');
         $('.bingo').append('<div class="cell '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" alt="test">' + zeroPad(i, 2) + '</div>');
       }
     });
