@@ -152,7 +152,7 @@
   </style>
 </head>
 <body>
-  <h1>沒中籤的朋友們 <span>last updated: 2021/11/3 11:56</span></h1>
+  <h1>沒中籤的朋友們 <span>last updated: 2021/11/3 15:50</span></h1>
 
   <input type="checkbox" name="partial" id="partial">
   <input type="checkbox" name="active" id="active">
@@ -248,6 +248,21 @@
       }, {
         name: '【第四週】農遊券',
         codes: ['315', '740', '381', '264', '285', '765', '682', '763', '373', '015', '374']
+      }, {
+        name: '【第四週】藝fun券(數位)',
+        codes: ['70', '61', '37', '85', '67', '35', '44']
+      }, {
+        name: '【第四週】藝fun券(紙本)',
+        codes: ['75', '72', '71', '28', '67', '82', '93', '56', '34', '07']
+      }, {
+        name: '【第四週】動滋券',
+        codes: []
+      }, {
+        name: '【第四週】客庄劵2.0',
+        codes: []
+      }, {
+        name: '【第四週】地方創生券',
+        codes: []
       }]
 
     const zeroPad = (num, places) => String(num).padStart(places, '0')
@@ -275,7 +290,7 @@
           isPartial = partialList.includes(zeroPad(i, 2))
         }
         // $('.wrapper').append('<div class="number '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" alt="test">' + zeroPad(i, 2) + '</div>');
-        $('.bingo').append('<div class="cell '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" alt="test">' + zeroPad(i, 2) + '</div>');
+        $('.bingo').append('<div class="cell '+ (isActive ? 'active' : '') +' '+ (isPartial ? 'partial' : '') +'" title="test">' + zeroPad(i, 2) + '</div>');
       }
     });
   </script>
